@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>yii</title>
-</head>
 <body>
 <h1>Yii Short code</h1>
 
