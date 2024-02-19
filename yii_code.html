@@ -419,7 +419,88 @@
         ->setCc('jakdoe102@yopmail.com') 
         ->setBcc('jakdoe103@yopmail.com')
         ->send();
-</pre>            
+</pre>       
+
+<h4>Form Inputs</h4>
+<pre>
+	Textbox : $form->field($model, 'name')
+	Textbox : $form->field($model, 'name')->textInput()
+	Password : $form->field($model, 'password')->passwordInput()
+	Email  : $form->field($model, 'email')->input('email') 
+	Date  : $form->field($model, 'date')->input('date')
+	Time :  $form->field($model, 'username')->input('time')
+	Number : $form->field($model, 'number')->input('number')
+	Image  : $form->field($model, 'file')->fileInput()
+	Textarea : $form->field($model, 'attribute')->textarea()
+	Datetime : $form->field($model, 'username')->input('datetime-local')
+	Hidden : $form->field($model, 'username')->input('hidden')
+	Hidden : $form->field($model, 'username')->hiddenInput()->label(false)
+	Month : $form->field($model, 'month')->input('month')
+	Week : $form->field($model, 'week')->input('week')
+	Range : $form->field($model, 'range')->input('range') 
+	Checkbox : $form->field($model, 'attribute')->checkbox()
+	Tel : $form->field($model, 'telephone')->input('tel')
+    Url :  $form->field($model, 'website')->input('url')
+	Color : $form->field($model, 'attribute')->input('color')
+	Search : $form->field($model, 'search')->input('search')
+	Url : $form->field($model, 'attribute')->input('url')
+	Checkbox : $form->field($model, 'hobby')->checkboxList(['reading' => 'Reading','sports' => 'Sports'])
+	Select : $form->field($model, 'country')->dropDownList([
+			'IND' => 'India', 
+    		'USA' => 'United States',
+    		'CAN' => 'Canada',
+    		'UK' => 'United Kingdom'])
+    Radio : $form->field($model, 'attribute')->radio()
+			$form->field($model, 'gender')->radioList(['male' => 'Male', 'female' => 'Female'],
+    		['prompt' => 'Select Gender'])		 
+    Submit : $form->submitButton('Submit')
+    Reset : $form->resetButton('Reset')
+</pre>     
+
+<h4>File Upload</h4>
+<pre>	
+	use yii\web\UploadedFile;
+	public function actionUploadFile(){
+        $model = new File();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->file = UploadedFile::getInstance($model, 'file');
+            if ($model->file) {
+                $imageName = $model->file->baseName. '_'. time(). '.'. $model->file->extension;
+                $model->file->saveAs('documents/'. $imageName);
+                $model->file = $imageName;
+            }
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', 'File saved successfully.');
+                return $this->redirect(['file/upload-document']);
+            }
+        }
+        return $this->render('file',compact('model'));
+    }
+</pre>
+
+<h4>Sorting</h4>
+<pre>
+	use yii\data\Sort;
+
+	$sort = new Sort([
+        'attributes' => [
+            'id',
+            'name',
+            'email',
+            'phone',
+            'address',
+        ],
+        'defaultOrder' => [
+            'id' => SORT_DESC,
+        ],
+    ]);
+
+    $model = Contacts::find()->orderBy($sort->orders)->all();
+
+        return $this->render('sorting',compact('model','sort'));
+    }
+</pre>    
 
 <h4>Links</h4>
 <pre>
