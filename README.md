@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
+<head>
+<title>yii</title>
+</head>
 <body>
 <h1>Yii Short code</h1>
 
 <h4>What is the latest version of Yii?</h4>
 <pre>
-	The latest version of Yii framework is Yii 2.0.49
+	The latest version of the Yii framework is Yii 2.0.49
 </pre>
 
 <h4>Install yii</h4>
@@ -13,6 +16,9 @@
 	composer create-project yiisoft/yii2-app-basic myproject
 	composer create-project --stability=dev yiisoft/yii2-app-basic basic
 	composer create-project yiisoft/yii2-app-advanced yiiadvanced
+
+	php composer.phar require --dev --prefer-dist yiisoft/yii2-gii
+
 </pre>	
 
 <h4>Start server</h4>
@@ -121,6 +127,12 @@
 <pre>
 	$getData = Yii::$app->request->get();
 	$id = Yii::$app->request->get('id');
+</pre>
+
+<h4>Ajax request</h4>
+<pre>
+	Yii::$app->request->isAjax
+	Yii::$app->response->format = Response::FORMAT_JSON;
 </pre>
 
 <h4>Query (ActiveRecord)</h4>
@@ -416,7 +428,114 @@
         ->setCc('jakdoe102@yopmail.com') 
         ->setBcc('jakdoe103@yopmail.com')
         ->send();
-</pre>            
+</pre>       
+
+<h4>Form Inputs</h4>
+<pre>
+	Textbox : $form->field($model, 'name')
+	Textbox : $form->field($model, 'name')->textInput()
+	Password : $form->field($model, 'password')->passwordInput()
+	Email  : $form->field($model, 'email')->input('email') 
+	Date  : $form->field($model, 'date')->input('date')
+	Time :  $form->field($model, 'username')->input('time')
+	Number : $form->field($model, 'number')->input('number')
+	Image  : $form->field($model, 'file')->fileInput()
+	Textarea : $form->field($model, 'attribute')->textarea()
+	Datetime : $form->field($model, 'username')->input('datetime-local')
+	Hidden : $form->field($model, 'username')->input('hidden')
+	Hidden : $form->field($model, 'username')->hiddenInput()->label(false)
+	Month : $form->field($model, 'month')->input('month')
+	Week : $form->field($model, 'week')->input('week')
+	Range : $form->field($model, 'range')->input('range') 
+	Checkbox : $form->field($model, 'attribute')->checkbox()
+	Tel : $form->field($model, 'telephone')->input('tel')
+    Url :  $form->field($model, 'website')->input('url')
+	Color : $form->field($model, 'attribute')->input('color')
+	Search : $form->field($model, 'search')->input('search')
+	Url : $form->field($model, 'attribute')->input('url')
+	Checkbox : $form->field($model, 'hobby')->checkboxList(['reading' => 'Reading','sports' => 'Sports'])
+	Select : $form->field($model, 'country')->dropDownList([
+			'IND' => 'India', 
+    		'USA' => 'United States',
+    		'CAN' => 'Canada',
+    		'UK' => 'United Kingdom'])
+    Radio : $form->field($model, 'attribute')->radio()
+			$form->field($model, 'gender')->radioList(['male' => 'Male', 'female' => 'Female'],
+    		['prompt' => 'Select Gender'])		 
+    Submit : $form->submitButton('Submit')
+    Reset : $form->resetButton('Reset')
+</pre>     
+
+<h4>File Upload</h4>
+<pre>	
+	use yii\web\UploadedFile;
+	public function actionUploadFile(){
+        $model = new File();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->file = UploadedFile::getInstance($model, 'file');
+            if ($model->file) {
+                $imageName = $model->file->baseName. '_'. time(). '.'. $model->file->extension;
+                $model->file->saveAs('documents/'. $imageName);
+                $model->file = $imageName;
+            }
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', 'File saved successfully.');
+                return $this->redirect(['file/upload-document']);
+            }
+        }
+        return $this->render('file',compact('model'));
+    }
+</pre>
+
+<h4>Sorting</h4>
+<pre>
+	use yii\data\Sort;
+
+	$sort = new Sort([
+        'attributes' => [
+            'id',
+            'name',
+            'email',
+            'phone',
+            'address',
+        ],
+        'defaultOrder' => [
+            'id' => SORT_DESC,
+        ],
+    ]);
+
+    $model = Contacts::find()->orderBy($sort->orders)->all();
+
+        return $this->render('sorting',compact('model','sort'));
+    }
+</pre>
+
+<h4>Yii CSRF</h4>
+
+<pre>
+	$csrf = \Yii::$app->request->csrfToken;
+</pre>
+
+<h4>Yii GII</h4>
+<pre>
+	This extension provides a Web-based code generator, called Gii, for Yii framework 2.0 applications. 
+	You can use Gii to quickly generate models, forms, modules, CRUD, etc.
+
+	Gii is an automatic code generation tool introduced in Yii 2.0. 
+	It simplifies the process of creating repetitive code by generating it automatically based on user input. 
+	Here’s how you can use Gii and some examples
+</pre>
+
+<h4>Gii install</h4>
+<pre>
+	composer require --dev --prefer-dist yiisoft/yii2-gii
+</pre>	
+
+<h4>Help for Gii</h4>
+<pre>
+	yii help gii
+</pre>	
 
 <h4>Links</h4>
 <pre>
