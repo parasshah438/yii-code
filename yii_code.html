@@ -16,6 +16,9 @@
 	composer create-project yiisoft/yii2-app-basic myproject
 	composer create-project --stability=dev yiisoft/yii2-app-basic basic
 	composer create-project yiisoft/yii2-app-advanced yiiadvanced
+
+	php composer.phar require --dev --prefer-dist yiisoft/yii2-gii
+
 </pre>	
 
 <h4>Start server</h4>
@@ -124,6 +127,12 @@
 <pre>
 	$getData = Yii::$app->request->get();
 	$id = Yii::$app->request->get('id');
+</pre>
+
+<h4>Ajax request</h4>
+<pre>
+	Yii::$app->request->isAjax
+	Yii::$app->response->format = Response::FORMAT_JSON;
 </pre>
 
 <h4>Query (ActiveRecord)</h4>
@@ -500,7 +509,33 @@
 
         return $this->render('sorting',compact('model','sort'));
     }
-</pre>    
+</pre>
+
+<h4>Yii CSRF</h4>
+
+<pre>
+	$csrf = \Yii::$app->request->csrfToken;
+</pre>
+
+<h4>Yii GII</h4>
+<pre>
+	This extension provides a Web-based code generator, called Gii, for Yii framework 2.0 applications. 
+	You can use Gii to quickly generate models, forms, modules, CRUD, etc.
+
+	Gii is an automatic code generation tool introduced in Yii 2.0. 
+	It simplifies the process of creating repetitive code by generating it automatically based on user input. 
+	Here’s how you can use Gii and some examples
+</pre>
+
+<h4>Gii install</h4>
+<pre>
+	composer require --dev --prefer-dist yiisoft/yii2-gii
+</pre>	
+
+<h4>Help for Gii</h4>
+<pre>
+	yii help gii
+</pre>	
 
 <h4>Links</h4>
 <pre>
