@@ -381,6 +381,74 @@
     	['ip_address', 'ip', 'ipv4' => false, 'subnet' => null, 'expandIPv6' => true],
 </pre>	
 
+<h4>Conditional Validation when</h4>
+<pre>
+	Server-Side Validation ('when' Property)
+	Conditional validation in Yii2 allows you to validate attributes based on certain conditions
+
+
+    ['email', 'required', 'when' => function($model) {
+    	return $model->subscribe == true;
+	}]
+
+    ['city', 'safe', 'when' => function ($model) {
+        return $model->country == 'India';
+    }]
+
+    ['state', 'required', 'when' => function ($model) {
+        return $model->country == 'India';
+    }]
+
+    [['state', 'city'], 'required', 'when' => function ($model) {
+        return $model->country != 'India';
+    }]
+
+    ['city', 'required', 'when' => function ($model) {
+        return $model->country == 'India' && $model->state == 'Gujarat';
+    }]
+
+    ['city', 'safe', 'when' => function ($model) {
+        return $model->country == 'India' && $model->state != 'Gujarat';
+    }]
+
+    ['username', 'required', 'message' => 'Please choose a username.', 'when' => function ($model) {
+        return $model->country == 'USA';
+    }],
+
+    ['age', 'validateAge', 'when' => function($model) {
+   		return $model->isAdult == true;
+	}],
+
+	public function validateAge($attribute, $params)
+	{
+	    if ($this->$attribute < 18) {
+	        $this->addError($attribute, 'You must be an adult.');
+	    }
+	}
+</pre>
+
+<h4>Conditional Validation whenClient</h4>
+<pre>
+	Client-Side Validation ('whenClient' Property')
+
+	The whenClient property complements server-side validation by allowing you to define 
+	a JavaScript function that determines whether to apply the rule on the client side.
+	
+    ['email', 'required', 'whenClient' => "function (attribute, value) {
+        return $('#subscribe').prop('checked');
+    }"]
+
+    ['status', 'required', 'message' => 'Status must be APPROVED because Value is not empty', 
+    'when' => function ($model, $attribute) {
+        return $model->value > 0;
+    }, 'whenClient' => "function (attribute, value) {
+        return ($('#value').val() > 0);
+    
+    ['state', 'required', 'whenClient' => "function(attribute, value) {
+            return $('#country').val() === 'India';
+    }"]
+</pre>
+
 <h4>scenario</h4>
 <pre>
 	User register

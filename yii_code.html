@@ -385,23 +385,19 @@
 
 <h4>Conditional Validation when</h4>
 <pre>
+	Server-Side Validation ('when' Property)
 	Conditional validation in Yii2 allows you to validate attributes based on certain conditions
 
-	Server-Side Validation ('when' Property)
-
-	['amount', 'required', 'when' => function($model) {
-        return $model->showAmountField == true;
-    }],
 
     ['email', 'required', 'when' => function($model) {
     	return $model->subscribe == true;
-	}],
-
-	['state', 'required', 'when' => function ($model) {
-        return $model->country == 'USA';
-    }]
+	}]
 
     ['city', 'safe', 'when' => function ($model) {
+        return $model->country == 'India';
+    }]
+
+    ['state', 'required', 'when' => function ($model) {
         return $model->country == 'India';
     }]
 
