@@ -165,6 +165,17 @@
 	$customer->delete();
 </pre>
 
+<h4>Multiple Delete data</h4>
+<pre>
+	$selection = Yii::$app->request->post('selection');
+    if (!empty($selection)) {
+        Contacts::deleteAll(['in', 'id', $selection]);
+        Yii::$app->session->setFlash('success', 'Selected contacts have been deleted successfully.');
+    } else {
+        Yii::$app->session->setFlash('error', 'Please select contacts to delete.');
+    }
+</pre>
+
 <h4>Search data</h4>
 <pre>
 	$records = User::find()
