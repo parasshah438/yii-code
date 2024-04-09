@@ -115,6 +115,12 @@
 
    (Host name in the URL) - Yii::$app->request->serverName;
    (Port used by the web server) - Yii::$app->request->serverPort;
+
+    $request = Yii::$app->request;
+    if ($request->isAjax) (the request is an AJAX request)
+	if ($request->isGet)  (the request method is GET)
+	if ($request->isPost) (the request method is POST)
+	if ($request->isPut)  (the request method is PUT)
 </pre>   
 
 <h4>POST data in a controller</h4>
