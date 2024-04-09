@@ -588,6 +588,19 @@
     }
 </pre>
 
+<h4>Make custom dd function</h4>
+<pre>
+	if (!function_exists('dd')) {
+	    function dd(...$vars)
+	    {
+	        foreach ($vars as $var) {
+	            \yii\helpers\VarDumper::dump($var, 10, true);
+	        }
+	        exit(1);
+	    }
+	}
+</pre>
+
 <h4>Yii CSRF</h4>
 
 <pre>
