@@ -607,6 +607,14 @@
 	}
 </pre>
 
+<h4>Yii Caches</h4>
+<pre>
+	php yii cache/flush-all
+	php yii cache/flush-data
+	php yii cache/flush-schema
+	php yii cache/flush-assets
+</pre>
+
 <h4>Yii CSRF</h4>
 
 <pre>
