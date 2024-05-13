@@ -641,6 +641,12 @@
 	yii help gii
 </pre>	
 
+<h4>Packages</h4>
+<pre>
+	https://github.com/mdmsoft/yii2-admin
+	composer require mdmsoft/yii2-admin "2.x-dev"
+</pre>
+
 <h4>Links</h4>
 <pre>
 https://www.thecodedeveloper.com/install-yii-with-xampp/
